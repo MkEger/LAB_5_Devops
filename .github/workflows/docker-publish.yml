@@ -12,7 +12,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Lint HTML
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
@@ -20,7 +20,7 @@ jobs:
       - name: Install htmlhint
         run: npm install -g htmlhint
 
-      - name: Run htmlhint
+      - name: Run htmlhint on HTML files
         run: htmlhint index.html
 
   build-and-push:
@@ -36,8 +36,8 @@ jobs:
       - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
@@ -45,8 +45,8 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ secrets.DOCKER_HUB_USERNAME }}/lab4:latest
-            ${{ secrets.DOCKER_HUB_USERNAME }}/lab4:${{ github.sha }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/lab4:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/lab4:${{ github.sha }}
 
       - name: Logout from Docker Hub
         run: docker logout
