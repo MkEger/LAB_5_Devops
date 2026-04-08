@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE GYM OF KNOWLEDGE | Gachi Phrases</title>
+    <style>
+        
+        body {
+            font-family: 'Impact', sans-serif; 
+            background-color: #050505; 
+            color: #d0d0d0; 
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        
+        header {
+            background: linear-gradient(180deg, #101010, #000);
+            width: 100%;
+            padding: 20px 0;
+            text-align: center;
+            border-bottom: 3px solid #666; 
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.2); 
+        }
+
+        header h1 {
+            color: #d4af37; 
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 0;
+            text-shadow: 2px 2px 0 #000;
+        }
+
+        
+        .phrase-container {
+            background: rgba(20, 20, 20, 0.8); 
+            border: 2px solid #333; 
+            border-radius: 15px;
+            padding: 40px;
+            margin-top: 50px;
+            text-align: center;
+            max-width: 600px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease; 
+        }
+
+        .phrase-container:hover {
+            border-color: #d4af37; 
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        
+        .phrase-text {
+            font-size: 2.5rem;
+            color: #e0e0e0;
+            text-transform: uppercase;
+            margin: 0;
+            text-shadow: 1px 1px 2px #000;
+        }
+
+        
+        .btn-gachi {
+            background-color: #d4af37; 
+            color: #000;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        .btn-gachi:hover {
+            background-color: #bf9b30;
+        }
+
+        .btn-gachi:active {
+            transform: translateY(2px); 
+        }
+
+        
+        footer {
+            margin-top: auto; 
+            padding: 20px;
+            font-size: 0.9rem;
+            color: #555;
+            text-align: center;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>DEEP DARK FANTASIES</h1>
+    </header>
+
+    <main class="phrase-container">
+        <p class="phrase-text" id="gachiPhrase">
+            Hey, buddy, I think you got the wrong door.
+        </p>
+        <button class="btn-gachi" onclick="nextPhrase()">Наступна Фраза</button>
+    </main>
+
+    <footer>
+        WELCOME TO THE GYM.
+    </footer>
+
+    <script>
+       
+        const phrases = [
+            "Hey, buddy, I think you got the wrong door.",
+            "Boss of this gym.",
+            "I'm the performance artist.",
+            "Boy next door.",
+            "Deep dark fantasies.",
+            "Dungeon Master.",
+            "Take it, boy.",
+            "Gachi is about friendship and respect.",
+            "Fishing is 300 bucks"
+        ];
+
+        let currentPhraseIndex = 0;
+
+        
+        function nextPhrase() {
+            const phraseElement = document.getElementById('gachiPhrase');
+            
+            
+            currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
+            
+            phraseElement.textContent = phrases[currentPhraseIndex];
+        }
+    </script>
+
+</body>
+</html>
