@@ -30,7 +30,7 @@ resource "aws_security_group" "labubu" {
 
 resource "aws_instance" "lab6_server" {
   ami           = "ami-0e2c8ccd9e036930e" # AMI для Ubuntu 24.04 в us-east-1
-  instance_type = "t2.micro"
+  instance_type = "t3.micro"
   key_name      = "my-aws-key" # НАЗВА ТВОГО КЛЮЧА В AWS (без .pem)
 
   vpc_security_group_ids = [aws_security_group.lab6_sg.id]
