@@ -2,7 +2,7 @@ provider "aws" {
   region = "us-east-1" 
 }
 
-resource "aws_security_group" "labubu" {
+resource "aws_security_group" "Labuba" {
   name        = "allow_web_ssh"
   description = "Allow SSH and HTTP traffic"
 
@@ -28,8 +28,8 @@ resource "aws_security_group" "labubu" {
   }
 }
 
-resource "aws_instance" "lab6_server" {
-  ami           = "ami-0e2c8ccd9e036930e" # AMI для Ubuntu 24.04 в us-east-1
+resource "aws_instance" "Labuba" {
+  ami           = "i-0f0b8f837eac9d107" # AMI для Ubuntu 24.04 в us-east-1
   instance_type = "t3.micro"
   key_name      = "my-aws-key" # НАЗВА ТВОГО КЛЮЧА В AWS (без .pem)
 
