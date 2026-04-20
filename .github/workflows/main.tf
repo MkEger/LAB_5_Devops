@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "us-east-1" 
+  region = "eu-north-1" 
 }
 
 resource "aws_security_group" "Labuba" {
@@ -28,12 +28,13 @@ resource "aws_security_group" "Labuba" {
   }
 }
 
-resource "aws_instance" "Labuba" {
-  ami           = "i-0f0b8f837eac9d107" # AMI для Ubuntu 24.04 в us-east-1
+resource "aws_instance" "lab_6" {
+  ami           = "ami-080254318c2d8932f" 
   instance_type = "t3.micro"
-  key_name      = "my-aws-key" # НАЗВА ТВОГО КЛЮЧА В AWS (без .pem)
+  key_name      = "my-aws-key" 
 
-  vpc_security_group_ids = [aws_security_group.lab6_sg.id]
+ 
+  vpc_security_group_ids = [aws_security_group.Labuba.id]
 
   user_data = <<-EOF
               #!/bin/bash
@@ -43,10 +44,10 @@ resource "aws_instance" "Labuba" {
               sudo systemctl enable docker
               sudo usermod -aG docker ubuntu
 
-              # Запуск Watchtower
+              
               sudo docker run -d --name watchtower -v /var/run/docker.sock:/var/run/docker.sock containrrr/watchtower --interval 30
 
-              # Запуск твого застосунку
+          
               sudo docker run -d -p 80:80 --name my-app kornini/lab4:latest
               EOF
 
@@ -56,5 +57,5 @@ resource "aws_instance" "Labuba" {
 }
 
 output "instance_ip" {
-  value = aws_instance.lab6_server.public_ip
+  value = aws_instance.lab_6.public_ip
 }
