@@ -5,8 +5,6 @@ provider "aws" {
 resource "aws_security_group" "Labuba" {
   name        = "allow_web_ssh_v2" 
   description = "Allow ssh and http traffic"
-  # ... все інше залишається без змін
-}
 
   ingress {
     from_port   = 22
