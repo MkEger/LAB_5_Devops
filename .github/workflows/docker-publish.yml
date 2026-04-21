@@ -1,4 +1,4 @@
-name: Build and Push Docker Image
+name: CI/CD Pipeline (Docker + Terraform)
 
 on:
   push:
@@ -6,6 +6,7 @@ on:
       - main
 
 jobs:
+  # 1. ПЕРЕВІРКА КОДУ
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -23,8 +24,9 @@ jobs:
       - name: Run htmlhint on HTML files
         run: htmlhint index.html
 
+  # 2. ЗБІРКА І ВІДПРАВКА НА DOCKER HUB
   build-and-push:
-    needs: lint
+    needs: lint # Чекає на успішний lint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -50,3 +52,29 @@ jobs:
 
       - name: Logout from Docker Hub
         run: docker logout
+
+  # 3. РОЗГОРТАННЯ ІНФРАСТРУКТУРИ ЧЕРЕЗ TERRAFORM
+  terraform-deploy:
+    needs: build-and-push # Чекає, поки Докер образ точно опиниться на Хабі
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_wrapper: false
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-north-1 # Твій регіон (Стокгольм)
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
